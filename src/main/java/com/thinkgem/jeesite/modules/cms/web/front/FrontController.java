@@ -67,6 +67,7 @@ public class FrontController extends BaseController{
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
+		logger.debug("to the frontPath index");
 		return "modules/cms/front/themes/"+site.getTheme()+"/frontIndex";
 	}
 	
@@ -226,7 +227,8 @@ public class FrontController extends BaseController{
 	@RequestMapping(value = "view-{categoryId}-{contentId}${urlSuffix}")
 	public String view(@PathVariable String categoryId, @PathVariable String contentId, Model model) {
 		Category category = categoryService.get(categoryId);
-		if (category==null){
+        logger.debug("in the contentId view");
+        if (category==null){
 			Site site = CmsUtils.getSite(Site.defaultSiteId());
 			model.addAttribute("site", site);
 			return "error/404";
@@ -259,6 +261,7 @@ public class FrontController extends BaseController{
             CmsUtils.addViewConfigAttribute(model, article.getViewConfig());
             Site site = siteService.get(category.getSite().getId());
             model.addAttribute("site", site);
+            System.out.println(model);
 //			return "modules/cms/front/themes/"+category.getSite().getTheme()+"/"+getTpl(article);
             return "modules/cms/front/themes/"+site.getTheme()+"/"+getTpl(article);
 		}
@@ -270,15 +273,19 @@ public class FrontController extends BaseController{
 	 */
 	@RequestMapping(value = "comment", method=RequestMethod.GET)
 	public String comment(String theme, Comment comment, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<Comment> page = new Page<Comment>(request, response);
+        logger.debug("get comments");
+        Page<Comment> page = new Page<Comment>(request, response);
 		Comment c = new Comment();
 		c.setCategory(comment.getCategory());
 		c.setContentId(comment.getContentId());
 		c.setDelFlag(Comment.DEL_FLAG_NORMAL);
-		page = commentService.findPage(page, c);
+        System.out.println("c:::"+c);
+        page = commentService.findPage(page, c);
 		model.addAttribute("page", page);
 		model.addAttribute("comment", comment);
-		return "modules/cms/front/themes/"+theme+"/frontComment";
+        logger.debug("get comments"+model);
+
+        return "modules/cms/front/themes/"+theme+"/frontComment";
 	}
 	
 	/**
@@ -289,7 +296,8 @@ public class FrontController extends BaseController{
 	public String commentSave(Comment comment, String validateCode,@RequestParam(required=false) String replyId, HttpServletRequest request) {
 		if (StringUtils.isNotBlank(validateCode)){
 			if (ValidateCodeServlet.validate(request, validateCode)){
-				if (StringUtils.isNotBlank(replyId)){
+                System.out.println(comment.toString());
+                if (StringUtils.isNotBlank(replyId)){
 					Comment replyComment = commentService.get(replyId);
 					if (replyComment != null){
 						comment.setContent("<div class=\"reply\">"+replyComment.getName()+":<br/>"

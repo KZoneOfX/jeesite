@@ -4,10 +4,8 @@
 package com.thinkgem.jeesite.modules.sys.web;
 
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.web.util.WebUtils;
@@ -17,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.security.shiro.session.SessionDAO;
@@ -132,6 +129,7 @@ public class LoginController extends BaseController{
 	@RequiresPermissions("user")
 	@RequestMapping(value = "${adminPath}")
 	public String index(HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("in the adminPath index");
 		Principal principal = UserUtils.getPrincipal();
 
 		// 登录成功后，验证码计算器清零
@@ -140,14 +138,17 @@ public class LoginController extends BaseController{
 		if (logger.isDebugEnabled()){
 			logger.debug("show index, active session size: {}", sessionDAO.getActiveSessions(false).size());
 		}
-		
+
 		// 如果已登录，再次访问主页，则退出原账号。
 		if (Global.TRUE.equals(Global.getConfig("notAllowRefreshIndex"))){
 			String logined = CookieUtils.getCookie(request, "LOGINED");
+			logger.debug("logind:::"+logined);
 			if (StringUtils.isBlank(logined) || "false".equals(logined)){
 				CookieUtils.setCookie(response, "LOGINED", "true");
+				logger.debug("CookieUtils.setCookie(response, \"LOGINED\", \"true\");");
 			}else if (StringUtils.equals(logined, "true")){
 				UserUtils.getSubject().logout();
+				logger.debug("return \"redirect:\" + adminPath + \"/login\";");
 				return "redirect:" + adminPath + "/login";
 			}
 		}
@@ -155,11 +156,14 @@ public class LoginController extends BaseController{
 		// 如果是手机登录，则返回JSON字符串
 		if (principal.isMobileLogin()){
 			if (request.getParameter("login") != null){
+				logger.debug("return renderString(response, principal);");
 				return renderString(response, principal);
 			}
 			if (request.getParameter("index") != null){
+				logger.debug("return \"modules/sys/sysIndex\"");
 				return "modules/sys/sysIndex";
 			}
+			logger.debug("\t\t\treturn \"redirect:\" + adminPath + \"/login\";");
 			return "redirect:" + adminPath + "/login";
 		}
 		

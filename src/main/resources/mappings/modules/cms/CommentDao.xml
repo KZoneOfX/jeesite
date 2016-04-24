@@ -34,6 +34,7 @@
 		<include refid="cmsCommentDaoJoins"/>
 		<where>
 			a.del_flag = #{delFlag}
+			AND a.content_id = #{contentId}
 			<if test="title != null and title != ''">
 				AND a.title LIKE 
 					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>

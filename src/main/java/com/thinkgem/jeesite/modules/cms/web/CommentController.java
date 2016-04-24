@@ -49,7 +49,7 @@ public class CommentController extends BaseController {
 	@RequiresPermissions("cms:comment:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Comment comment, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Page<Comment> page = commentService.findPage(new Page<Comment>(request, response), comment); 
+        Page<Comment> page = commentService.findPage(new Page<Comment>(request, response), comment);
         model.addAttribute("page", page);
 		return "modules/cms/commentList";
 	}
