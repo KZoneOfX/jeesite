@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.UserExtendDao">
+
+	
+    <sql id="userExtendColumns">
+    	a.id,
+    	a.class_no AS "classNo",
+    	a.university_name AS "universityName",
+    	a.major_name AS "majorName",
+    	a.qq,
+    	a.wechat,
+		a.class_teacher_name AS "classTeacherName",
+    </sql>
+    
+
+	
+	<!-- 根据编号获得用户 -->
+	<select id="get" resultType="UserExtend">
+		SELECT
+			<include refid="userColumns"/>
+		FROM sys_user_extend a
+		WHERE a.id = #{id}
+	</select>
+	<!-- 插入用户 -->
+	<insert id="insert">
+		INSERT INTO sys_user_extend(
+			id, 
+			class_no,
+			university_name,
+			major_name,
+			qq,
+			wechat,
+			class_teacher_name
+		) VALUES (
+			#{id}, 
+			#{classNo},
+			#{universityName},
+			#{majorName},
+			#{qq},
+			#{wechat},
+			#{classTeacherName}
+		)
+	</insert>
+	
+	<!-- 更新用户 -->
+	<update id="update">
+		UPDATE sys_user_extend SET
+			class_no = #{classNo},
+			university_name = #{UniversityName},
+			major_name = #{majorName},
+			qq = #{qq},
+			wechat = #{wechat},
+			class_teacher_name = #{class_teacher_name}
+		WHERE id = #{id}
+	</update>
+
+
+
+</mapper>

@@ -26,12 +26,12 @@
                     <c:set var="menuCategoryId" value=",${category.id},"/>
 		    		<li class="${requestScope.category.id eq category.id||fn:indexOf(requestScope.category.parentIds,menuCategoryId) ge 1?'active':''}"><a href="${category.url}" target="${category.target}"><span>${category.name}</span></a></li>
 		    	</c:if></c:forEach>
-			    <li id="siteSwitch" class="dropdown">
-			       	<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="站点"><i class="icon-retweet"></i></a>
-					<ul class="dropdown-menu">
-					  <c:forEach items="${fnc:getSiteList()}" var="site"><li><a href="#" onclick="location='${ctx}/index-${site.id}${urlSuffix}'">${site.title}</a></li></c:forEach>
-					</ul>
-				</li>
+			    <%--<li id="siteSwitch" class="dropdown">--%>
+			       	<%--<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="站点"><i class="icon-retweet"></i></a>--%>
+					<%--<ul class="dropdown-menu">--%>
+					  <%--<c:forEach items="${fnc:getSiteList()}" var="site"><li><a href="#" onclick="location='${ctx}/index-${site.id}${urlSuffix}'">${site.title}</a></li></c:forEach>--%>
+					<%--</ul>--%>
+				<%--</li>--%>
 		    	<li id="themeSwitch" class="dropdown">
 			       	<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="主题切换"><i class="icon-th-large"></i></a>
 				    <ul class="dropdown-menu">
@@ -40,9 +40,9 @@
 				    <!--[if lte IE 6]><script type="text/javascript">$('#themeSwitch').hide();</script><![endif]-->
 			    </li>
             </ul>
-            <form class="navbar-form pull-right" action="${ctx}/search" method="get">
-              	<input type="text" name="q" maxlength="20" style="width:65px;" placeholder="全站搜索..." value="${q}">
-            </form>
+            <%--<form class="navbar-form pull-right" action="${ctx}/search" method="get">--%>
+              	<%--<input type="text" name="q" maxlength="20" style="width:65px;" placeholder="全站搜索..." value="${q}">--%>
+            <%--</form>--%>
           </div><!--/.nav-collapse -->
         </div>
       </div>

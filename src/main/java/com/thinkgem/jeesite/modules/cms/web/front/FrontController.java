@@ -99,6 +99,7 @@ public class FrontController extends BaseController{
 	
 	/**
 	 * 内容列表
+	 * TODO target
 	 */
 	@RequestMapping(value = "list-{categoryId}${urlSuffix}")
 	public String list(@PathVariable String categoryId, @RequestParam(required=false, defaultValue="1") Integer pageNo,

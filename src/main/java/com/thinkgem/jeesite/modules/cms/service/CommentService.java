@@ -17,7 +17,7 @@ import com.thinkgem.jeesite.modules.cms.entity.Comment;
  * @version 2013-01-15
  */
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 public class CommentService extends CrudService<CommentDao, Comment> {
 
 	public Page<Comment> findPage(Page<Comment> page, Comment comment) {

@@ -6,6 +6,11 @@ package com.thinkgem.jeesite.modules.sys.web;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.thinkgem.jeesite.common.beanvalidator.BeanValidators;
+import com.thinkgem.jeesite.common.utils.*;
+import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.web.util.WebUtils;
@@ -19,10 +24,6 @@ import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.security.shiro.session.SessionDAO;
 import com.thinkgem.jeesite.common.servlet.ValidateCodeServlet;
-import com.thinkgem.jeesite.common.utils.CacheUtils;
-import com.thinkgem.jeesite.common.utils.CookieUtils;
-import com.thinkgem.jeesite.common.utils.IdGen;
-import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.security.FormAuthenticationFilter;
 import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm.Principal;
@@ -38,14 +39,16 @@ public class LoginController extends BaseController{
 	
 	@Autowired
 	private SessionDAO sessionDAO;
-	
+
+	@Autowired
+	private SystemService systemService;
 	/**
 	 * 管理登录
 	 */
 	@RequestMapping(value = "${adminPath}/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Principal principal = UserUtils.getPrincipal();
-
+		System.out.println("hello");
 //		// 默认页签模式
 //		String tabmode = CookieUtils.getCookie(request, "tabmode");
 //		if (tabmode == null){
@@ -80,7 +83,7 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "${adminPath}/login", method = RequestMethod.POST)
 	public String loginFail(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Principal principal = UserUtils.getPrincipal();
-		
+		System.out.println("hello");
 		// 如果已经登录，则跳转到管理首页
 		if(principal != null){
 			return "redirect:" + adminPath;
@@ -227,4 +230,23 @@ public class LoginController extends BaseController{
 		}
 		return loginFailNum >= 3;
 	}
+	/**
+	 * 管理登录
+	 */
+	@RequestMapping(value = "${adminPath}/register", method = RequestMethod.POST)
+	public String register(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String name = request.getParameter("name");
+		System.out.println("hello");
+		final ResultMapper resultMapper = new ResultMapper();
+		System.out.println(name);
+		User user = new User();
+		user.setPassword(SystemService.entryptPassword("123456"));
+		BeanValidators.validateWithException(validator, user);
+		systemService.saveUser(user);
+		if (StringUtils.isNoneBlank(name)) {
+			return renderString(response, resultMapper);
+		}
+		return "redirect:" + adminPath + "/login";
+	}
+
 }
