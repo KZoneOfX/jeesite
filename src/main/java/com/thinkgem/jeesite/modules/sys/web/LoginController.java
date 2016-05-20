@@ -248,6 +248,8 @@ public class LoginController extends BaseController{
 	                       @RequestParam(required=false) String major_name,
 	                       @RequestParam(required=false) String email,
 	                       @RequestParam(required=false) String mobile,
+	                       @RequestParam(required=false) String qq,
+	                       @RequestParam(required=false) String wechat,
 	                       @RequestParam(required=false) String classTeacherName,
 	                       HttpServletResponse response, Model model) {
 
@@ -260,6 +262,8 @@ public class LoginController extends BaseController{
 		userExtend.setClassNo(class_no);
 		userExtend.setUniversityName(university_name);
 		userExtend.setMajorName(major_name);
+		userExtend.setQq(qq);
+		userExtend.setWechat(wechat);
 		userExtend.setClassTeacherName(classTeacherName);
 		final ResultMapper resultMapper = new ResultMapper();
 		System.out.println(name);
@@ -293,6 +297,9 @@ public class LoginController extends BaseController{
 			BeanValidators.validateWithException(validator, user);
 
 			systemService.saveUser(user);
+			user = systemService.getUserByLoginName(user.getLoginName());
+			userExtend.setId(user.getId());
+			systemService.insertUserExtend(userExtend);
 		}
 
 //		BeanValidators.validateWithException(validator, user);

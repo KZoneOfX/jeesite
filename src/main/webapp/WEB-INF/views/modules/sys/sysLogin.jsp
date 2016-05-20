@@ -98,6 +98,8 @@
                 var university_name = $("#university_name").val();
                 var major_name = $("#major_name").val();
                 var email = $("#email").val();
+                var qq = $("#qq").val();
+                var wechat = $("#weChat").val();
                 var mobile = $("#mobile").val();
                 var classTeacherName = $("#classTeacherName").val();
 				if (name.length == 0||
@@ -120,6 +122,8 @@
 						"university_name":university_name,
 						"major_name":major_name,
 						"email":email,
+						"qq":qq,
+						"wechat":wechat,
 						"classTeacherName":classTeacherName,
 						"mobile":mobile
 
@@ -221,6 +225,18 @@
                 <label class="control-label">邮箱:</label>
                 <div class="controls">
                     <input id="email" name="email" maxlength="50" class="email" value="zhangxk@outlook.com"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">QQ:</label>
+                <div class="controls">
+                    <input id="qq" name="qq"  maxlength="50" value="604547487"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">微信:</label>
+                <div class="controls">
+                    <input id="weChat" name="wechat"  maxlength="50" value="hello"/>
                 </div>
             </div>
             <div class="control-group">

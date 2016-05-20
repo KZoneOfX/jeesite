@@ -539,6 +539,11 @@ public class SystemService extends BaseService implements InitializingBean {
 			identityService.deleteUser(userId);
 		}
 	}
+
+	@Transactional(readOnly = false)
+	public void insertUserExtend(UserExtend userExtend){
+		userExtendDao.insert(userExtend);
+	}
 	
 	///////////////// Synchronized to the Activiti end //////////////////
 	
