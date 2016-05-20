@@ -190,55 +190,55 @@
 
     <!--收藏浮层开始-->
 	<div id="smallLay" style="display:none" >
-        <form:form id="inputForm" modelAttribute="user" action="${ctx}/sys/user/info" method="post" class="form-horizontal">
-            <sys:message content="${message}"/>
+        <%--<form:form id="inputForm" modelAttribute="user" action="${ctx}/sys/user/info" method="post" class="form-horizontal">--%>
+            <%--<sys:message content="${message}"/>--%>
 
             <div class="control-group">
                 <label class="control-label">姓名:</label>
                 <div class="controls">
-                    <input id="name" name="name"  maxlength="50" class="required" />
+                    <input id="name" name="name"  maxlength="50" class="required" value="test" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">辛中毕业班级:</label>
                 <div class="controls">
-                    <input id="class_no" name="class_no"  maxlength="50" class="required" />
+                    <input id="class_no" name="class_no"  maxlength="50" class="required" value="test" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">大学就读学校:</label>
                 <div class="controls">
-                    <input id="university_name" name="university_name"  maxlength="50" class="required" />
+                    <input id="university_name" name="university_name"  maxlength="50" class="required" value="test" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">大学就读专业:</label>
                 <div class="controls">
-                    <input id="major_name" name="major_name"  maxlength="50" class="required" />
+                    <input id="major_name" name="major_name"  maxlength="50" class="required" value="test" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">邮箱:</label>
                 <div class="controls">
-                    <input id="email" name="email" maxlength="50" class="email"/>
+                    <input id="email" name="email" maxlength="50" class="email" value="zhangxk@outlook.com"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">手机:</label>
                 <div class="controls">
-                    <input id="mobile" name="mobile" htmlEscape="false" maxlength="50"/>
+                    <input id="mobile" name="mobile"  maxlength="50" value="18202426984"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">辛中班主任姓名:</label>
                 <div class="controls">
-                    <input id="classTeacherName" name="classTeacherName" htmlEscape="false" maxlength="50"/>
+                    <input id="classTeacherName" name="classTeacherName"  maxlength="50" value="test"/>
                 </div>
             </div>
             <div class="form-actions">
                 <input id="btnSubmitRegister" class="btn btn-primary" type="submit" value="提 交"/>
             </div>
-        </form:form>
+        <%--</form:form>--%>
 	</div>
     <!--收藏浮层结束-->
 	<script src="${ctxStatic}/flash/zoom.min.js" type="text/javascript"></script>

@@ -3,22 +3,28 @@
 <mapper namespace="com.thinkgem.jeesite.modules.sys.dao.UserExtendDao">
 
 	
-    <sql id="userExtendColumns">
-    	a.id,
-    	a.class_no AS "classNo",
-    	a.university_name AS "universityName",
-    	a.major_name AS "majorName",
-    	a.qq,
-    	a.wechat,
-		a.class_teacher_name AS "classTeacherName",
-    </sql>
+    <!--<sql id="userExtendColumns">-->
+    	<!--a.id,-->
+    	<!--a.class_no AS "classNo",-->
+    	<!--a.university_name AS "universityName",-->
+    	<!--a.major_name AS "majorName",-->
+    	<!--a.qq,-->
+    	<!--a.wechat,-->
+		<!--a.class_teacher_name AS "classTeacherName"-->
+    <!--</sql>-->
     
 
 	
 	<!-- 根据编号获得用户 -->
 	<select id="get" resultType="UserExtend">
 		SELECT
-			<include refid="userColumns"/>
+		a.id,
+		a.class_no AS "classNo",
+		a.university_name AS "universityName",
+		a.major_name AS "majorName",
+		a.qq,
+		a.wechat,
+		a.class_teacher_name AS "classTeacherName"
 		FROM sys_user_extend a
 		WHERE a.id = #{id}
 	</select>

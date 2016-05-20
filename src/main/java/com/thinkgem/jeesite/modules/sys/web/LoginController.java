@@ -3,13 +3,19 @@
  */
 package com.thinkgem.jeesite.modules.sys.web;
 
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.beanvalidator.BeanValidators;
 import com.thinkgem.jeesite.common.utils.*;
+import com.thinkgem.jeesite.modules.sys.entity.Office;
+import com.thinkgem.jeesite.modules.sys.entity.Role;
 import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.entity.UserExtend;
+import com.thinkgem.jeesite.modules.sys.service.OfficeService;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -28,6 +34,7 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.sys.security.FormAuthenticationFilter;
 import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm.Principal;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 登录Controller
@@ -234,19 +241,75 @@ public class LoginController extends BaseController{
 	 * 管理登录
 	 */
 	@RequestMapping(value = "${adminPath}/register", method = RequestMethod.POST)
-	public String register(HttpServletRequest request, HttpServletResponse response, Model model) {
-		String name = request.getParameter("name");
+	public String register(HttpServletRequest request,
+	                       @RequestParam(required=false) String class_no ,
+	                       @RequestParam(required=false) String name,
+	                       @RequestParam(required=false) String university_name,
+	                       @RequestParam(required=false) String major_name,
+	                       @RequestParam(required=false) String email,
+	                       @RequestParam(required=false) String mobile,
+	                       @RequestParam(required=false) String classTeacherName,
+	                       HttpServletResponse response, Model model) {
+
+//		String major_name = request.getParameter("major_name");.
+//		String email = request.getParameter("email");
+//		String mobile = request.getParameter("mobile");
+//		String classTeacherName = request.getParameter("classTeacherName");
 		System.out.println("hello");
+		UserExtend userExtend = new UserExtend();
+		userExtend.setClassNo(class_no);
+		userExtend.setUniversityName(university_name);
+		userExtend.setMajorName(major_name);
+		userExtend.setClassTeacherName(classTeacherName);
 		final ResultMapper resultMapper = new ResultMapper();
 		System.out.println(name);
+		System.out.println(class_no);
+		System.out.println(email);
+		System.out.println(userExtend.toString());
 		User user = new User();
 		user.setPassword(SystemService.entryptPassword("123456"));
-		BeanValidators.validateWithException(validator, user);
-		systemService.saveUser(user);
+		user.setLoginName(class_no+name);
+		user.setEmail(email);
+		user.setPhone(mobile);
+		user.setName(name);
+		user.setDelFlag("0");
+//		user.setOffice();
+		Office office = new Office("f0d9f980f5c8416081b0db4386cb387e");
+
+		Office company = new Office("c3141d6a55d54f1ab10292465a3d86a2");
+		user.setCompany(company);
+		user.setOffice(office);
+		User user1 = new User("1");
+		user.setCreateBy(user1);
+		user.setUpdateBy(user1);
+//		Role role   = new Role("22d873067bbb481499c41be46e408f67");//校友
+		Role role =systemService.getRoleByName("校友");
+		List<String> rolelist = Lists.newArrayList();
+		rolelist.add(role.getId());
+		user.setRoleIdList(rolelist);
+		user.setRole(role);
+		if ("true".equals(checkLoginName("", user.getLoginName()))) {
+			user.setPassword(SystemService.entryptPassword("123456"));
+			BeanValidators.validateWithException(validator, user);
+
+			systemService.saveUser(user);
+		}
+
+//		BeanValidators.validateWithException(validator, user);
+//		systemService.saveUser(user);
 		if (StringUtils.isNoneBlank(name)) {
 			return renderString(response, resultMapper);
 		}
 		return "redirect:" + adminPath + "/login";
+	}
+
+	public String checkLoginName(String oldLoginName, String loginName) {
+		if (loginName !=null && loginName.equals(oldLoginName)) {
+			return "true";
+		} else if (loginName !=null && systemService.getUserByLoginName(loginName) == null) {
+			return "true";
+		}
+		return "false";
 	}
 
 }
