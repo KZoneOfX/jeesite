@@ -17,7 +17,7 @@
       label.error{background:none;width:270px;font-weight:normal;color:inherit;margin:0;}
 	  .hidden{ display:none}
 	  /*评论浮动层*/
-	  #smallLay{width:498px; height:600px;padding:4px 10px 10px;background-color:#FFFFFF;border:1px solid #05549d;color:#333333;line-height:24px;text-align:left;-webkit-box-shadow:5px 2px 6px #000;-moz-box-shadow:3px 3px 6px #555;}
+	  #smallLay{width:498px; height:650px;padding:4px 10px 10px;background-color:#FFFFFF;border:1px solid #05549d;color:#333333;line-height:24px;text-align:left;-webkit-box-shadow:5px 2px 6px #000;-moz-box-shadow:3px 3px 6px #555;}
 
 	</style>
 	<script type="text/javascript">
@@ -134,16 +134,10 @@
 						console.log(data);
 						if (data.code == "1000") {
 							alert(data.message);
-//							if (data.isEdit) {
-//								alert("订单更新成功，1秒后跳转订单列表页。");
-//
-////                        setTimeout("javascript:location.href=serverDomain+'/views/Node/order/orderInquiry.html'", 500);
-////								setTimeout("javascript:history.go(-1);", 500);
-//							} else {
-//								alert("订单更新失败，请稍候再试。");
-//							}
+							alert("用户名为："+data.datas.username);
+							alert("初始密码为 123456  ");
 						} else {
-							alert("订单更新失败，请稍候再试。");
+							alert("注册失败，请稍候再试。");
 						}
 					},
 					error: function () {
@@ -189,7 +183,7 @@
 		</div>
 	</form>
 	<div class="footer">
-		Copyright &copy; 2012-${fns:getConfig('copyrightYear')} <a href="${pageContext.request.contextPath}${fns:getFrontPath()}">${fns:getConfig('productName')}</a> - Powered By <a href="http://jeesite.com" target="_blank">JeeSite</a> ${fns:getConfig('version')} 
+		Copyright &copy; 2012-${fns:getConfig('copyrightYear')} <a href="${pageContext.request.contextPath}${fns:getFrontPath()}">${fns:getConfig('productName')}</a> - Powered By <a href="http://jeesite.com" target="_blank">JeeSite</a> ${fns:getConfig('version')}
 	</div>
 
     <!--收藏浮层开始-->
@@ -200,55 +194,55 @@
             <div class="control-group">
                 <label class="control-label">姓名:</label>
                 <div class="controls">
-                    <input id="name" name="name"  maxlength="50" class="required" value="test" />
+                    <input id="name" name="name"  maxlength="50" class="required" placeholder="姓名" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">辛中毕业班级:</label>
                 <div class="controls">
-                    <input id="class_no" name="class_no"  maxlength="50" class="required" value="test" />
+                    <input id="class_no" name="class_no"  maxlength="50" class="required" placeholder="435班" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">大学就读学校:</label>
                 <div class="controls">
-                    <input id="university_name" name="university_name"  maxlength="50" class="required" value="test" />
+                    <input id="university_name" name="university_name"  maxlength="50" class="required" placeholder="我的大学" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">大学就读专业:</label>
                 <div class="controls">
-                    <input id="major_name" name="major_name"  maxlength="50" class="required" value="test" />
+                    <input id="major_name" name="major_name"  maxlength="50" class="required" placeholder="我的专业" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">邮箱:</label>
                 <div class="controls">
-                    <input id="email" name="email" maxlength="50" class="email" value="zhangxk@outlook.com"/>
+                    <input id="email" name="email" maxlength="50" class="email" placeholder="xiaoyou@outlook.com"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">QQ:</label>
                 <div class="controls">
-                    <input id="qq" name="qq"  maxlength="50" value="604547487"/>
+                    <input id="qq" name="qq"  maxlength="50" placeholder="1234567"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">微信:</label>
                 <div class="controls">
-                    <input id="weChat" name="wechat"  maxlength="50" value="hello"/>
+                    <input id="weChat" name="wechat"  maxlength="50" placeholder="hello_wechat"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">手机:</label>
                 <div class="controls">
-                    <input id="mobile" name="mobile"  maxlength="50" value="18202426984"/>
+                    <input id="mobile" name="mobile"  maxlength="50" placeholder="182****6984"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">辛中班主任姓名:</label>
                 <div class="controls">
-                    <input id="classTeacherName" name="classTeacherName"  maxlength="50" value="test"/>
+                    <input id="classTeacherName" name="classTeacherName"  maxlength="50" placeholder="老师"/>
                 </div>
             </div>
             <div class="form-actions">

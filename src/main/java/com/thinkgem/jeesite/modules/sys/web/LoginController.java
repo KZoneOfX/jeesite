@@ -266,6 +266,8 @@ public class LoginController extends BaseController{
 		userExtend.setWechat(wechat);
 		userExtend.setClassTeacherName(classTeacherName);
 		final ResultMapper resultMapper = new ResultMapper();
+		Map<String,String> datas = Maps.newHashMap();
+
 		System.out.println(name);
 		System.out.println(class_no);
 		System.out.println(email);
@@ -300,12 +302,14 @@ public class LoginController extends BaseController{
 			user = systemService.getUserByLoginName(user.getLoginName());
 			userExtend.setId(user.getId());
 			systemService.insertUserExtend(userExtend);
+			datas.put("username",class_no+name);
+			resultMapper.setDatas(datas);
 		}
 
 //		BeanValidators.validateWithException(validator, user);
 //		systemService.saveUser(user);
 		if (StringUtils.isNoneBlank(name)) {
-			return renderString(response, resultMapper);
+			return renderString(response, resultMapper.getResultMap());
 		}
 		return "redirect:" + adminPath + "/login";
 	}
