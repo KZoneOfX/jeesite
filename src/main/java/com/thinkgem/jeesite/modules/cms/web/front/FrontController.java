@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.thinkgem.jeesite.modules.sys.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -305,9 +306,12 @@ public class FrontController extends BaseController{
 								+replyComment.getContent()+"</div>"+comment.getContent());
 					}
 				}
+				comment.setAuditDate(new Date());
+				User user = new User("96439fc9112f415cbe127f288c560f0a");
+				comment.setAuditUser(user);
 				comment.setIp(request.getRemoteAddr());
 				comment.setCreateDate(new Date());
-				comment.setDelFlag(Comment.DEL_FLAG_AUDIT);
+				comment.setDelFlag("0");
 				commentService.save(comment);
 				return "{result:1, message:'提交成功。'}";
 			}else{

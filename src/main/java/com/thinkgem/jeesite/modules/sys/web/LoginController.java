@@ -61,7 +61,6 @@ public class LoginController extends BaseController{
 //		if (tabmode == null){
 //			CookieUtils.setCookie(response, "tabmode", "1");
 //		}
-		
 		if (logger.isDebugEnabled()){
 			logger.debug("login, active session size: {}", sessionDAO.getActiveSessions(false).size());
 		}
@@ -73,6 +72,7 @@ public class LoginController extends BaseController{
 		
 		// 如果已经登录，则跳转到管理首页
 		if(principal != null && !principal.isMobileLogin()){
+			request.getSession().setAttribute("loginName",principal.getLoginName());
 			return "redirect:" + adminPath;
 		}
 //		String view;
@@ -93,6 +93,8 @@ public class LoginController extends BaseController{
 		System.out.println("hello");
 		// 如果已经登录，则跳转到管理首页
 		if(principal != null){
+			request.getSession().setAttribute("loginName",principal.getLoginName());
+
 			return "redirect:" + adminPath;
 		}
 

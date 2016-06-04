@@ -61,25 +61,25 @@
 			<div class="control-group">
 				<label class="control-label">名称:</label>
 				<div class="controls">
-					<input type="text" name="name" maxlength="11" class="required" style="width:300px;"/>
+					<input type="text" name="name" maxlength="11" class="required" value="${loginName}" style="width:300px;"/>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" hidden>
 				<label class="control-label">邮箱:</label>
 				<div class="controls">
-					<input type="text" name="email" maxlength="50" class="required email" style="width:300px;"/>
+					<input type="text" name="email" maxlength="50" value="default@outlook.com" class="required email" style="width:300px;"/>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" hidden>
 				<label class="control-label">电话:</label>
 				<div class="controls">
-					<input type="text" name="phone" maxlength="50" class="required phone" style="width:300px;"/>
+					<input type="text" name="phone" maxlength="50" value="XXXXXXXXXXXX" class="required phone" style="width:300px;"/>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" hidden>
 				<label class="control-label">单位:</label>
 				<div class="controls">
-					<input type="text" name="workunit" maxlength="50" class="required" style="width:300px;"/>
+					<input type="text" name="workunit" maxlength="50" value="XXXXXXXXXXX" class="required" style="width:300px;"/>
 				</div>
 			</div>
 			<div class="control-group">
